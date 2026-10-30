@@ -1,6 +1,6 @@
 # LineTop 当前交接
 
-更新日期：2026-10-30（北京时间）。长期要求见 [PROJECT_CONSTRAINTS](PROJECT_CONSTRAINTS.md)，唯一当前设计入口为 [根 design.md](../design.md)。
+更新日期：2026-10-31（北京时间；阶段 2 设计修订完成于 10-30，10-31 仅补记推送操作）。长期要求见 [PROJECT_CONSTRAINTS](PROJECT_CONSTRAINTS.md)，唯一当前设计入口为 [根 design.md](../design.md)。
 
 ## 当前任务与状态
 
@@ -24,6 +24,8 @@
 ## 下一步授权边界
 
 本次仅授权直接修订 design.md、PROJECT_CONSTRAINTS、WORK_STATUS 及必要 README。第三至第六阶段的建议文件范围和验收标准只放在 [design.md 第 9 节](../design.md#9-第三至第六阶段建议顺序文件范围与验收)，不是开工授权；当前没有产品实施、安装、提交、推送、部署或 DNS 变更授权。
+
+补充（2026-10-31，用户新明确指令）：用户要求把当前工作区推送到 GitHub 原分支。已在 `main` 提交并推送至 `origin/main`（提交 `1bed361`，30 个文件：index.html/README.md 现有修改，以及 AGENTS、design.md、docs、assets、scripts、.gitignore、色板/组件整理/视频笔记等此前未跟踪资料；`.tmp/` 仍被忽略）。该推送经系统代理 127.0.0.1:7688 完成，未修改产品代码或 DNS，不含部署；仍不构成第三阶段开工授权。
 
 交付后停止。下一位 Agent 应等待新的阶段指令，不再次做阶段 1 研究、不自动兑现 design.md 里的全部待验收项。新的明确用户指令可更新授权；不因旧“不要建 design.md”“顶部吸顶”“上移收缩”“85% 纯白”而抵制本次已明确的变化。
 
