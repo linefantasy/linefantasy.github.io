@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1032 268" role="img" aria-label="LineTop">
+  <defs>
+    <path id="lt-o" fill-rule="evenodd" d="M762 72H815C841 72 861 92 861 119V155C861 181 841 201 815 201H762C736 201 716 181 716 155V119C716 92 736 72 762 72ZM765 108C757 108 752 114 752 123V151C752 160 757 166 765 166H812C821 166 826 160 826 151V123C826 114 821 108 812 108Z"/>
+    <path id="lt-p" fill-rule="evenodd" d="M883 72H920V84C932 73 945 70 957 70C987 70 1010 95 1010 135C1010 172 988 196 959 196C942 196 932 191 923 183V252H883ZM924 119V147C928 160 937 166 950 166C968 166 978 154 978 135C978 116 968 105 951 105C938 105 930 110 924 119Z"/>
+    <clipPath id="lt-o-clip"><use href="#lt-o"/></clipPath>
+    <clipPath id="lt-p-clip"><use href="#lt-p"/></clipPath>
+  </defs>
+  <!-- Custom geometric letter outlines; no font or remote resource dependency. -->
+  <g fill="#12354F">
+    <path d="M12 12H58V158H147L134 200H12Z"/>
+    <path d="M174 12H205V47H164V22ZM164 72H205V200H164Z"/>
+    <path d="M223 72H260V88C275 72 289 66 309 66C349 66 368 90 368 126V200H326V131C326 111 315 102 301 102C279 102 264 118 264 139V200H223Z"/>
+    <path fill-rule="evenodd" d="M516 173L531 184C513 202 491 208 469 208C420 208 388 180 388 137C388 94 420 66 461 66C507 66 535 98 535 131V150H430C435 169 448 176 470 176C487 176 500 172 512 164ZM431 122H492C489 103 477 95 464 95C447 95 436 105 431 122Z"/>
+  </g>
+  <path d="M550 16H752L734 58H681V200H633V58H550Z" fill="#31A9FF" stroke="#12354F" stroke-width="4" stroke-linejoin="round"/>
+  <use href="#lt-o" fill="#31A9FF"/>
+  <path d="M703 172L867 141V215H703Z" fill="#4FFFC4" clip-path="url(#lt-o-clip)"/>
+  <use href="#lt-o" fill="none" stroke="#12354F" stroke-width="4"/>
+  <use href="#lt-p" fill="#31A9FF"/>
+  <path d="M875 224L933 210V262H875Z" fill="#D9FF00" clip-path="url(#lt-p-clip)"/>
+  <use href="#lt-p" fill="none" stroke="#12354F" stroke-width="4"/>
+</svg>

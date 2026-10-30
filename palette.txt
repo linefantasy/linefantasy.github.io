@@ -1,0 +1,28 @@
+- CSV
+
+d9ff00,4fffc4,31a9ff,ffffff
+
+- With #
+
+#d9ff00, #4fffc4, #31a9ff, #ffffff
+
+- Array
+
+["d9ff00","4fffc4","31a9ff","ffffff"]
+
+- Object
+
+{"Lime Yellow":"d9ff00","Tropical Mint":"4fffc4","Cool Sky":"31a9ff","White":"ffffff"}
+
+- Extended Array
+
+[{"name":"Lime Yellow","hex":"d9ff00","rgb":[217,255,0],"cmyk":[15,0,100,0],"hsb":[69,100,100],"hsl":[69,100,50],"lab":[94,-37,91]},{"name":"Tropical Mint","hex":"4fffc4","rgb":[79,255,196],"cmyk":[69,0,23,0],"hsb":[160,69,100],"hsl":[160,100,65],"lab":[90,-58,15]},{"name":"Cool Sky","hex":"31a9ff","rgb":[49,169,255],"cmyk":[81,34,0,0],"hsb":[205,81,100],"hsl":[205,100,60],"lab":[67,-3,-52]},{"name":"White","hex":"ffffff","rgb":[255,255,255],"cmyk":[0,0,0,0],"hsb":[0,0,100],"hsl":[0,0,100],"lab":[100,0,0]}]
+
+- XML
+
+<palette>
+  <color name="Lime Yellow" hex="d9ff00" r="217" g="255" b="0" />
+  <color name="Tropical Mint" hex="4fffc4" r="79" g="255" b="196" />
+  <color name="Cool Sky" hex="31a9ff" r="49" g="169" b="255" />
+  <color name="White" hex="ffffff" r="255" g="255" b="255" />
+</palette>
