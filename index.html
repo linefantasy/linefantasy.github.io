@@ -8,8 +8,10 @@
   <title>LineTop. — line fantasy</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/uiverse/components.css">
-  <link rel="stylesheet" href="assets/style.css?v=dea7612861">
-  <script src="assets/main.js?v=c296f516bb" defer></script>
+  <link rel="stylesheet" href="assets/style.css?v=df33bd31dc">
+  <script src="assets/main.js?v=5bf1fd5a52" defer></script>
+  <script src="assets/scene.js?v=ee261da70d" defer></script>
+  <script src="assets/avatar.js?v=21003fa30e" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#about">跳到关于我</a>
@@ -37,6 +39,7 @@
   </aside>
 
   <main id="main-content">
+    <div class="scene-track" id="lt-scene-track"><div class="scene-stage" id="lt-scene-stage">
     <header class="welcome" id="welcome">
       <span class="sun-anchor" id="lt-sun-start" data-sun-anchor="start" aria-hidden="true"><svg class="shared-sun" viewBox="0 0 100 100"><path d="M42 0h16v31l22-22 11 11-22 22h31v16H69l22 22-11 11-22-22v31H42V69L20 91 9 80l22-22H0V42h31L9 20 20 9l22 22z"/></svg></span>
       <span class="hero-slash slash-blue" aria-hidden="true"></span><span class="hero-slash slash-lime" aria-hidden="true"></span>
@@ -108,6 +111,8 @@
         <div class="footer-bottom"><span>© 2026 LineTop</span><span>保持好奇，持续生长。</span><span>linetop.top</span></div>
       </footer>
     </div>
+      <div class="scene-overlay" aria-hidden="true"></div>
+    </div></div>
   </main>
 
   <dialog class="content-panel" id="lt-panel" aria-labelledby="panel-title">
@@ -115,8 +120,17 @@
     <section data-panel-content="story" hidden><p class="panel-eyebrow">故事</p><p class="panel-main-text">故事内容待整理。</p><p class="panel-description">这里会慢慢留下真实的记录。</p></section>
     <section data-panel-content="likes" hidden><p class="panel-eyebrow">喜好</p><p class="panel-main-text">代码之外，<br>也喜欢动起来。</p><ul class="likes-list"><li>健身</li><li>游戏</li></ul></section>
     <section data-panel-content="settings" hidden>
-      <div class="avatar-setting"><img src="assets/avatar-default.svg" alt="当前默认头像" width="72" height="72"><div><h3>头像</h3><p>当前使用默认头像。</p></div></div>
-      <button class="avatar-unavailable" type="button" disabled>更换头像暂未开放</button><p class="panel-description">暂不支持选择或保存图片。</p>
+      <div class="avatar-setting"><img id="lt-avatar-preview" src="assets/avatar-default.svg" alt="当前头像，默认图案" width="72" height="72"><div><h3>头像</h3><p id="lt-avatar-state">当前使用默认头像。</p></div></div>
+      <div class="avatar-controls" id="lt-avatar-controls">
+        <label class="avatar-file-label" for="lt-avatar-file">选择本地图片</label>
+        <input id="lt-avatar-file" name="lt-avatar-file" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="avatar-description avatar-feedback" disabled>
+        <p id="avatar-description" class="panel-description">静态 PNG、JPEG 或 WebP，最大 5 MiB，至少 32×32、最多 1600 万像素。预览会从中央裁成正方形；保存前会缩小压缩。</p>
+        <div class="avatar-actions"><button id="lt-avatar-save" type="button" disabled>保存头像</button><button id="lt-avatar-cancel" type="button" disabled>取消预览</button></div>
+        <button id="lt-avatar-reset" class="avatar-reset" type="button" disabled>恢复默认头像</button>
+      </div>
+      <p id="avatar-feedback" class="avatar-feedback" role="status" aria-live="polite" aria-atomic="true">头像操作需要 JavaScript；当前默认头像仍可使用。</p>
+      <p class="panel-description avatar-local-note">仅保存在当前浏览器，不会上传服务器；其他设备或访客不会同步看到。</p>
+      <details class="avatar-privacy"><summary>保存范围与隐私</summary><p>保存按网站地址区分，本地测试与 linetop.top 不共享。更换浏览器、使用隐私窗口或清理站点数据后可能恢复默认。只保存处理后的头像，不保存原文件名或原始照片；同源脚本及能使用此浏览器的人仍可能访问。</p></details>
       <div class="motion-setting"><!-- uiverse:checkbox:start -->
 <!-- https://uiverse.io/andrew-manzyk/ancient-turtle-91 -->
 <!-- From Uiverse.io by andrew-manzyk -->
@@ -145,7 +159,7 @@
     <span>减少动态效果</span>
   </div>
 </label>
-<!-- uiverse:checkbox:end --><p id="motion-description">减少按钮、导航和卡片的动态反馈。</p><p class="motion-status" id="motion-status" role="status">此设置需要 JavaScript。系统的减少动态效果偏好仍然有效。</p></div>
+<!-- uiverse:checkbox:end --><p id="motion-description">关闭滚动转场与空间运动，按自然文档浏览。系统偏好优先。</p><p class="motion-status" id="motion-status" role="status">此设置需要 JavaScript。系统的减少动态效果偏好仍然有效。</p></div>
     </section>
   </dialog>
 </body>

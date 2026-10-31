@@ -21,9 +21,11 @@
   const titles = {story:'故事', likes:'喜好', settings:'设置'};
   let menuOpen = false;
   let menuScroll = 0;
+  let menuExperience = '';
   let panelReturn = menuButton;
   let restorePanelFocus = true;
   let modalScroll = null;
+  let modalExperience = '';
   let frame = 0;
   let preferred = false;
   try { preferred = localStorage.getItem('linetop-reduce-motion') === 'true'; } catch (_) { /* Optional storage. */ }
@@ -32,7 +34,8 @@
     frame = 0;
     const threshold = Math.min(200, innerHeight * .35);
     let active = '';
-    sections.forEach(section => { if (section.getBoundingClientRect().top <= threshold) active = section.id; });
+    if (root.dataset.experience === 'scene') active = root.dataset.sceneCurrent;
+    else sections.forEach(section => { if (section.getBoundingClientRect().top <= threshold) active = section.id; });
     if (active === 'footer') active = '';
     sectionLinks.forEach(link => {
       if (link.dataset.section === active) link.setAttribute('aria-current', 'location');
@@ -67,6 +70,7 @@
   function openMenu() {
     if (!narrow.matches || menuOpen) return;
     menuScroll = scrollY;
+    menuExperience = root.dataset.experience;
     menuOpen = true;
     root.classList.add('menu-open');
     menuButton.setAttribute('aria-expanded', 'true');
@@ -84,7 +88,7 @@
     backdrop.hidden = true;
     main.inert = false;
     syncSidebar();
-    window.scrollTo(0, menuScroll);
+    if (menuExperience === root.dataset.experience) window.scrollTo(0, menuScroll);
     if (restoreFocus) menuButton.focus({preventScroll:true});
   }
   function closePanel(restoreFocus = true) {
@@ -98,7 +102,7 @@
     const y = modalScroll;
     modalScroll = null;
     root.classList.remove('panel-modal-open');
-    window.scrollTo(0, y);
+    if (modalExperience === root.dataset.experience) window.scrollTo(0, y);
   }
   function openPanel(name, trigger) {
     if (!Object.hasOwn(titles, name)) return;
@@ -106,23 +110,27 @@
     panelReturn = narrow.matches ? menuButton : trigger;
     restorePanelFocus = true;
     panelTitle.textContent = titles[name];
+    panel.dataset.panel = name;
     panelSections.forEach(section => { section.hidden = section.dataset.panelContent !== name; });
     openers.forEach(opener => opener.setAttribute('aria-expanded', String(opener.dataset.openPanel === name)));
     if (!panel.open) {
       if (narrow.matches) {
         modalScroll = scrollY;
+        modalExperience = root.dataset.experience;
         root.classList.add('panel-modal-open');
         panel.showModal();
       }
       else panel.show();
     }
     panel.querySelector('.panel-close').focus({preventScroll:true});
+    document.dispatchEvent(new CustomEvent('linetop:panelchange',{detail:{name}}));
   }
   function syncMotion() {
     const reduced = systemMotion.matches || preferred;
     root.dataset.reducedMotion = String(reduced);
     toggle.checked = reduced;
     toggle.disabled = systemMotion.matches;
+    document.dispatchEvent(new CustomEvent('linetop:motionchange'));
     status.textContent = systemMotion.matches ? '已跟随系统偏好，减少动态效果。' : preferred ? '已减少动态效果。' : '已开启轻量动态反馈。';
   }
 
@@ -136,7 +144,7 @@
     opener.addEventListener('click', () => openPanel(opener.dataset.openPanel, opener));
   });
   panel.querySelector('.panel-close').addEventListener('click', () => closePanel());
-  panel.addEventListener('cancel', event => { event.preventDefault(); closePanel(); });
+  panel.addEventListener('cancel', event => { if (event.target === panel) { event.preventDefault(); closePanel(); } });
   panel.addEventListener('close', () => {
     releaseModalScroll();
     openers.forEach(opener => opener.setAttribute('aria-expanded', 'false'));
@@ -154,6 +162,14 @@
     if (event.key === 'Escape') {
       if (panel.open) closePanel();
       else if (menuOpen) closeMenu();
+    }
+    if (event.key === 'Tab' && panel.open && panel.matches(':modal')) {
+      const list = [...panel.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]')]
+        .filter(el => !el.disabled && el.tabIndex >= 0 && !el.closest('[hidden],[inert]') && el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+      const first = list[0], last = list[list.length - 1];
+      if (!list.includes(document.activeElement)) { event.preventDefault(); (event.shiftKey ? last : first)?.focus(); }
+      else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
     if (event.key === 'Tab' && menuOpen) {
       const list = focusableMenu();
@@ -175,6 +191,7 @@
   window.addEventListener('scroll', schedule, {passive:true});
   window.addEventListener('resize', schedule, {passive:true});
   window.addEventListener('pageshow', schedule);
+  document.addEventListener('linetop:scenechange', schedule);
   menuButton.hidden = false;
   menuClose.hidden = false;
   toggle.disabled = false;
