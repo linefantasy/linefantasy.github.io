@@ -6,12 +6,13 @@
   <meta name="theme-color" content="#FFFFFF">
   <meta name="description" content="LineTop 的个人空间。学习软件开发，探索 AI，把有趣的想法慢慢做出来。">
   <title>LineTop. — line fantasy</title>
+  <script src="assets/theme-init.js?v=10a9ce1f03"></script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/uiverse/components.css">
-  <link rel="stylesheet" href="assets/style.css?v=df33bd31dc">
-  <script src="assets/main.js?v=5bf1fd5a52" defer></script>
-  <script src="assets/scene.js?v=ee261da70d" defer></script>
-  <script src="assets/avatar.js?v=21003fa30e" defer></script>
+  <link rel="stylesheet" href="assets/style.css?v=5be11b5c69">
+  <script src="assets/main.js?v=beae06dd6c" defer></script>
+  <script src="assets/scene.js?v=48f94e9019" defer></script>
+  <script src="assets/preferences.js?v=202b02a455" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#about">跳到关于我</a>
@@ -20,22 +21,22 @@
   <aside class="site-sidebar" id="lt-sidebar" aria-label="个人与导航">
     <button class="sidebar-close" type="button" aria-label="关闭导航菜单" hidden>×</button>
     <div class="sidebar-profile">
-      <button class="avatar-button" type="button" data-open-panel="settings" aria-haspopup="dialog" aria-controls="lt-panel" aria-expanded="false" aria-label="打开设置，查看头像" disabled><img src="assets/avatar-default.svg" alt="默认头像" width="96" height="96"><span aria-hidden="true">↗</span></button>
+      <span class="avatar-button"><img id="lt-avatar" src="头像1.jpg" alt="line 的头像" width="96" height="96" data-fallback="assets/avatar-default.svg"></span>
       <a class="profile-name" href="#top" aria-label="line，回到首页">line<span aria-hidden="true">.</span></a>
     </div>
     <!-- From Uiverse.io by Pradeepsaranbishnoi -->
     <!-- https://uiverse.io/Pradeepsaranbishnoi/heavy-dragonfly-92 ; real tabs/glider CSS, adapted vertically with links and panel buttons. -->
     <nav class="lt-tabs sidebar-nav" aria-label="栏目导航">
       <a class="lt-tab" href="#projects" data-section="projects"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg>项目</a>
-      <button class="lt-tab" type="button" data-open-panel="story" aria-controls="lt-panel" aria-haspopup="dialog" aria-expanded="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>故事</button>
-      <button class="lt-tab" type="button" data-open-panel="likes" aria-controls="lt-panel" aria-haspopup="dialog" aria-expanded="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5c-2-2-5-1.5-8 1.5-3-3-6-3.5-8-1.5-3 3 0 7 8 13.5 8-6.5 11-10.5 8-13.5Z"/></svg>喜好</button>
+      <a class="lt-tab" href="#story" data-section="story"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>故事</a>
+      <a class="lt-tab" href="#likes" data-section="likes"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5c-2-2-5-1.5-8 1.5-3-3-6-3.5-8-1.5-3 3 0 7 8 13.5 8-6.5 11-10.5 8-13.5Z"/></svg>喜好</a>
       <a class="lt-tab" href="#personal" data-section="personal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg>探索</a>
-      <button class="lt-tab" type="button" data-open-panel="settings" aria-controls="lt-panel" aria-haspopup="dialog" aria-expanded="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>设置</button>
+      <a class="lt-tab" href="#tools" data-section="tools"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-3-12-2 16"/></svg>工具</a>
       <a class="lt-tab" href="#about" data-section="about"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7" r=".8" fill="currentColor"/></svg>关于</a>
       <span class="lt-glider" aria-hidden="true"></span>
     </nav>
     <div class="sidebar-bottom"><span class="sidebar-line" aria-hidden="true"></span><a href="#top">LineTop<span aria-hidden="true">↖</span></a></div>
-    <noscript><p class="noscript-note">喜好：健身、游戏。故事内容待整理。面板设置需要 JavaScript，正文与链接仍可浏览。</p></noscript>
+    <noscript><p class="noscript-note">所有栏目均可直接浏览；显示设置需要 JavaScript。</p></noscript>
   </aside>
 
   <main id="main-content">
@@ -45,7 +46,7 @@
       <span class="hero-slash slash-blue" aria-hidden="true"></span><span class="hero-slash slash-lime" aria-hidden="true"></span>
       <div class="welcome-copy">
         <p class="hero-greeting">Hello, welcome to</p>
-        <h1 class="hero-title" aria-label="LineTop"><object class="hero-wordmark" data="assets/linetop-wordmark.svg" type="image/svg+xml" tabindex="-1" aria-hidden="true">LineTop.</object></h1>
+        <h1 class="hero-title" aria-label="LineTop"><img data-theme-wordmark class="hero-wordmark" src="assets/linetop-wordmark.svg" width="1032" height="268" alt="" aria-hidden="true"><span class="wordmark-fallback" hidden>LineTop.</span></h1>
         <p class="hero-identity">line fantasy</p>
       </div>
       <div class="welcome-bottom"><!-- uiverse:explore:start -->
@@ -60,7 +61,7 @@
 
     <div class="site-body">
       <section class="personal section-frame" id="personal" aria-labelledby="personal-title">
-        <div class="section-kicker"><span class="section-number">01</span><span>学习 · 尝试 · 再向前一点</span></div>
+        <div class="section-kicker"><span>学习 · 尝试 · 再向前一点</span></div>
         <div class="personal-layout">
           <div class="personal-copy"><p class="eyebrow">很高兴，在这里遇见你。</p><h2 id="personal-title">保持<span class="outline">好奇，</span><br>把想法<span class="underlined">做出来。</span></h2><p class="personal-note">我是 Line。<br>在代码与灵感之间，探索自己的可能。</p></div>
           <div class="personal-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><span class="sun-target" id="lt-sun-end" data-sun-anchor="end"></span><span class="art-note">想法正在生长</span></div>
@@ -68,19 +69,31 @@
         <div class="personal-foot"><a href="#about">再认识一下我 <span aria-hidden="true">↙</span></a></div>
       </section>
       <section class="about section-frame" id="about" aria-labelledby="about-title">
-        <div class="section-kicker"><span class="section-number">02</span><span class="mint-label">学习进行时</span></div>
+        <div class="section-kicker"><span class="mint-label">学习进行时</span></div>
         <div class="about-layout"><h2 id="about-title">关于<span class="outline">我。</span></h2><div class="about-copy"><p>我是吉林大学软件学院的大三学生，正在学习软件开发与人工智能。喜欢用 AI 捣鼓小工具，也在认真准备考研。写代码之外，会去健身，偶尔玩玩游戏。</p><p class="about-aside">把这里当作一块小小的试验田，记录学习，也慢慢放下自己的作品。</p></div></div>
       </section>
       <section class="projects section-frame" id="projects" aria-labelledby="projects-title">
-        <div class="section-kicker"><span class="section-number">03</span><span>一些正在发芽的想法</span></div>
+        <div class="section-kicker"><span>一些正在发芽的想法</span></div>
         <div class="projects-heading"><h2 id="projects-title">慢慢<span class="outline">做，</span><br>慢慢<span class="outline">有。</span></h2><p>作品还在整理。<br>先留两个位置，等想法长大。</p></div>
         <div class="project-grid">
           <!-- From Uiverse.io by Tiagoadag -->
           <!-- https://uiverse.io/Tiagoadag/cuddly-catfish-6 ; preserved card/card2 double-layer structure and inner scale interaction. -->
-          <article class="lt-project-card"><div class="lt-project-inner"><div class="project-meta"><span>个人网站</span><span class="project-status">持续更新</span></div><div class="project-visual visual-web" aria-hidden="true"><span class="mini-browser"><i></i><i></i><i></i><img src="assets/linetop-wordmark.svg" alt="" width="240" height="62"></span></div><div class="project-caption"><h3>个人主页实验</h3><p>从这个小站开始，练习设计与交互。</p></div></div></article>
+          <article class="lt-project-card"><div class="lt-project-inner"><div class="project-meta"><span>个人网站</span><span class="project-status">持续更新</span></div><div class="project-visual visual-web" aria-hidden="true"><span class="mini-browser"><i></i><i></i><i></i><img data-theme-wordmark src="assets/linetop-wordmark.svg" alt="" width="240" height="62"></span></div><div class="project-caption"><h3>个人主页实验</h3><p>从这个小站开始，练习设计与交互。</p></div></div></article>
           <!-- From Uiverse.io by Tiagoadag -->
           <article class="lt-project-card project-mint"><div class="lt-project-inner"><div class="project-meta"><span>AI 小工具</span><span class="project-status">筹备中</span></div><div class="project-visual visual-tool" aria-hidden="true"><span class="tool-bracket">{</span><span class="tool-spark">AI</span><span class="tool-bracket">}</span></div><div class="project-caption"><h3>有用，也有趣的小工具</h3><p>探索 AI，让日常的小想法有个着落。</p></div></div></article>
         </div>
+      </section>
+      <section class="story content-scene section-frame" id="story" aria-labelledby="story-title">
+        <div class="content-scene-heading"><h2 id="story-title">慢慢<span class="outline">记录。</span></h2><span class="content-status">故事</span></div>
+        <div class="content-scene-body"><p class="content-lead">故事内容待整理。</p><p class="content-note">这里会慢慢留下真实的记录。</p></div>
+      </section>
+      <section class="likes content-scene section-frame" id="likes" aria-labelledby="likes-title">
+        <div class="content-scene-heading"><h2 id="likes-title">代码<span class="outline">之外。</span></h2><span class="content-status">喜好</span></div>
+        <div class="interest-grid"><article class="interest-card"><span class="interest-symbol" aria-hidden="true">＋</span><h3>健身</h3><p>也喜欢动起来。</p></article><article class="interest-card"><span class="interest-symbol" aria-hidden="true">↗</span><h3>游戏</h3><p>偶尔玩玩游戏。</p></article></div>
+      </section>
+      <section class="tools content-scene section-frame" id="tools" aria-labelledby="tools-title">
+        <div class="content-scene-heading"><h2 id="tools-title">有用，<span class="outline">也有趣。</span></h2><span class="content-status">工具</span></div>
+        <div class="content-scene-body"><p class="content-lead">工具还在整理。</p><p class="content-note">有可以使用的小工具时，再放到这里。</p><span class="project-status">筹备中</span></div>
       </section>
       <footer class="site-footer section-frame" id="footer">
         <div class="footer-top"><a href="#top">回到首页 ↑</a></div>
@@ -115,52 +128,24 @@
     </div></div>
   </main>
 
-  <dialog class="content-panel" id="lt-panel" aria-labelledby="panel-title">
-    <div class="panel-heading"><h2 id="panel-title">设置</h2><button type="button" class="panel-close" aria-label="关闭面板">×</button></div>
-    <section data-panel-content="story" hidden><p class="panel-eyebrow">故事</p><p class="panel-main-text">故事内容待整理。</p><p class="panel-description">这里会慢慢留下真实的记录。</p></section>
-    <section data-panel-content="likes" hidden><p class="panel-eyebrow">喜好</p><p class="panel-main-text">代码之外，<br>也喜欢动起来。</p><ul class="likes-list"><li>健身</li><li>游戏</li></ul></section>
-    <section data-panel-content="settings" hidden>
-      <div class="avatar-setting"><img id="lt-avatar-preview" src="assets/avatar-default.svg" alt="当前头像，默认图案" width="72" height="72"><div><h3>头像</h3><p id="lt-avatar-state">当前使用默认头像。</p></div></div>
-      <div class="avatar-controls" id="lt-avatar-controls">
-        <label class="avatar-file-label" for="lt-avatar-file">选择本地图片</label>
-        <input id="lt-avatar-file" name="lt-avatar-file" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="avatar-description avatar-feedback" disabled>
-        <p id="avatar-description" class="panel-description">静态 PNG、JPEG 或 WebP，最大 5 MiB，至少 32×32、最多 1600 万像素。预览会从中央裁成正方形；保存前会缩小压缩。</p>
-        <div class="avatar-actions"><button id="lt-avatar-save" type="button" disabled>保存头像</button><button id="lt-avatar-cancel" type="button" disabled>取消预览</button></div>
-        <button id="lt-avatar-reset" class="avatar-reset" type="button" disabled>恢复默认头像</button>
+  <!-- From Uiverse.io by wilsondesouza — brave-earwig-75 (local item 20).
+       Real icon-content / filled / tooltip mechanism adapted to buttons.
+       Gear, vertical expansion and preference behavior are new LineTop code. -->
+  <div class="quick-settings" id="lt-quick-settings" data-open="false" role="group" aria-label="显示与动态设置" hidden>
+    <button class="settings-gear" id="lt-settings-gear" type="button" aria-label="展开显示设置" aria-expanded="false" aria-controls="lt-quick-actions">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3-.6 2.4-2 .9-2.3-.7-2 3.5 1.8 1.7v2.4L2.1 15l2 3.5 2.3-.7 2 .9L9 21h6l.6-2.3 2-.9 2.3.7 2-3.5-1.8-1.8v-2.4l1.8-1.7-2-3.5-2.3.7-2-.9L15 3Z"/><circle cx="12" cy="12" r="3.5"/></svg>
+    </button>
+    <div class="quick-actions" id="lt-quick-actions" aria-hidden="true" inert>
+      <div class="quick-action">
+        <button id="lt-theme-toggle" class="quick-button" type="button" aria-label="切换深色模式" aria-pressed="false" aria-describedby="lt-theme-tip"><span class="quick-filled" aria-hidden="true"></span><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+        <span class="quick-tooltip" id="lt-theme-tip" role="tooltip">切换深色模式</span>
       </div>
-      <p id="avatar-feedback" class="avatar-feedback" role="status" aria-live="polite" aria-atomic="true">头像操作需要 JavaScript；当前默认头像仍可使用。</p>
-      <p class="panel-description avatar-local-note">仅保存在当前浏览器，不会上传服务器；其他设备或访客不会同步看到。</p>
-      <details class="avatar-privacy"><summary>保存范围与隐私</summary><p>保存按网站地址区分，本地测试与 linetop.top 不共享。更换浏览器、使用隐私窗口或清理站点数据后可能恢复默认。只保存处理后的头像，不保存原文件名或原始照片；同源脚本及能使用此浏览器的人仍可能访问。</p></details>
-      <div class="motion-setting"><!-- uiverse:checkbox:start -->
-<!-- https://uiverse.io/andrew-manzyk/ancient-turtle-91 -->
-<!-- From Uiverse.io by andrew-manzyk -->
-<label class="lt-checkbox">
-  <input type="checkbox" id="lt-reduce-motion" name="lt-reduce-motion" aria-describedby="motion-description motion-status" disabled />
-  <div class="lt-checkmark">
-    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <g
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <rect
-          x="1.5"
-          y="1.5"
-          width="21"
-          height="21"
-          rx="5"
-          ry="5"
-          stroke-width="3"
-        ></rect>
-        <polyline points="7 10 12 16 22 2" stroke-width="4"></polyline>
-      </g>
-    </svg>
-    <span>减少动态效果</span>
+      <div class="quick-action">
+        <button id="lt-motion-toggle" class="quick-button" type="button" aria-label="减少动态效果" aria-pressed="false" aria-describedby="lt-motion-tip"><span class="quick-filled" aria-hidden="true"></span><svg class="motion-pause" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 5v14M16 5v14"/></svg><svg class="motion-play" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m8 4 12 8-12 8Z"/></svg></button>
+        <span class="quick-tooltip" id="lt-motion-tip" role="tooltip">减少动态效果</span>
+      </div>
+    </div>
   </div>
-</label>
-<!-- uiverse:checkbox:end --><p id="motion-description">关闭滚动转场与空间运动，按自然文档浏览。系统偏好优先。</p><p class="motion-status" id="motion-status" role="status">此设置需要 JavaScript。系统的减少动态效果偏好仍然有效。</p></div>
-    </section>
-  </dialog>
+  <p id="preference-status" class="visually-hidden" role="status" aria-live="polite"></p>
 </body>
 </html>

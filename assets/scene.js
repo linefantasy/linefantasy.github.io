@@ -4,15 +4,22 @@
   const root = document.documentElement;
   const stage = document.getElementById('lt-scene-stage');
   const track = document.getElementById('lt-scene-track');
-  const ids = ['welcome', 'personal', 'about', 'projects', 'footer'];
+  const ids = ['welcome', 'personal', 'about', 'projects', 'story', 'likes', 'tools', 'footer'];
   const scenes = ids.map(id => document.getElementById(id));
   const sun = document.querySelector('.shared-sun');
   const start = document.getElementById('lt-sun-start');
   const end = document.getElementById('lt-sun-end');
   const overlay = stage?.querySelector('.scene-overlay');
   const personalParts = scenes[1] ? [...scenes[1].children].flatMap(el => el.classList.contains('personal-layout') ? [...el.children] : [el]) : [];
-  const stops = [0, .90, 1.63, 2.32, 2.97];
-  const spans = [[0,.90], [1.18,1.63], [1.87,2.32], [2.62,2.97]];
+  const stops = [0, .90, 1.63, 2.32];
+  const spans = [[0,.90], [1.18,1.63], [1.87,2.32]];
+  // Keep the original welcome handoff; later scenes share one fade/reading budget.
+  for (let i=4; i<ids.length; i++) {
+    const a = stops[i-1] + .30, b = a + .45;
+    spans.push([a,b]); stops.push(b);
+  }
+  const total = stops.at(-1) + .20;
+  track?.style.setProperty('--scene-track-units', String(total+1));
   const clamp = x => Math.max(0, Math.min(1, x));
   const ease = (a,b,x) => { const t = clamp((x-a)/(b-a)); return t*t*(3-2*t); };
   let enabled = false, failed = false, measuring = false, viewportFallback = false;
@@ -76,10 +83,10 @@
     // rendered semantic progress until new geometry has been measured.
     if (root.clientHeight !== H || stage.clientWidth !== geometry.width) { requestMeasure(); return; }
     const max = root.scrollHeight - H;
-    const u = Math.max(0, Math.min(3.17, scrollY >= max-1 ? 3.17 : scrollY/H));
+    const u = Math.max(0, Math.min(total, scrollY >= max-1 ? total : scrollY/H));
     progress = u;
     const p = clamp(u/.90);
-    const alpha = [1-ease(.15,.75,p), 1, 0, 0, 0];
+    const alpha = ids.map((_,i) => i===0 ? 1-ease(.15,.75,p) : i===1 ? 1 : 0);
     let current = p < .46 ? 0 : 1;
     for (let i=1; i<spans.length; i++) {
       const [a,b] = spans[i];
@@ -183,7 +190,7 @@
   }
   function initialPosition() {
     const id = idFromHash() || 'welcome', state = history.state;
-    return state?.ltScene === id && Number.isFinite(state.ltScenePosition) ? Math.max(0,Math.min(3.17,state.ltScenePosition)) : stops[ids.indexOf(id)];
+    return state?.ltScene === id && Number.isFinite(state.ltScenePosition) ? Math.max(0,Math.min(total,state.ltScenePosition)) : stops[ids.indexOf(id)];
   }
   function requestMeasure() { if (!failed && !measureFrame) measureFrame = requestAnimationFrame(measure); }
   function enter() {

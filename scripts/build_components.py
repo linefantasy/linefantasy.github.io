@@ -77,17 +77,14 @@ explore = explore.replace('<button class="lt-explore">', '<a class="lt-explore" 
 explore = explore.replace('<div class="lt-original">Button</div>', '<div class="lt-original" aria-hidden="true">向下探索 ↓</div>')
 explore = re.sub(r'<div class="lt-letters">.*?</div>', '<div class="lt-letters" aria-hidden="true"><span>向</span><span>下</span><span>探</span><span>索</span><span>↓</span></div>', explore, flags=re.S)
 explore = explore.replace('<!-- From', '<!-- https://uiverse.io/doniaskima/happy-turtle-32 -->\n<!-- From')
-checkbox = scope(parts[3]['html']).replace('<input type="checkbox" />', '<input type="checkbox" id="lt-reduce-motion" name="lt-reduce-motion" aria-describedby="motion-description motion-status" disabled />').replace('<span>Option</span>', '<span>减少动态效果</span>').replace('<svg ', '<svg aria-hidden="true" ')
-checkbox = checkbox.replace('<!-- From', '<!-- https://uiverse.io/andrew-manzyk/ancient-turtle-91 -->\n<!-- From')
 github = re.search(r'<li class="icon-content">\s*<a href="https://www.github.com/".*?</li>', parts[20]['html'], re.S).group(0)
 github = scope(github).replace('https://www.github.com/', 'https://github.com/linefantasy').replace('aria-label="GitHub"', 'aria-label="访问 LineTop 的 GitHub：linefantasy"').replace('<svg\n', '<svg aria-hidden="true"\n')
 github = '<!-- From Uiverse.io by wilsondesouza -->\n<!-- https://uiverse.io/wilsondesouza/brave-earwig-75 -->\n<ul class="lt-social">' + github + '</ul>'
 page = (ROOT / 'index.html').read_text(encoding='utf-8-sig')
-for name, markup in [('explore', explore), ('checkbox', checkbox), ('github', github)]:
+for name, markup in [('explore', explore), ('github', github)]:
     pattern = rf'<!-- uiverse:{name}:start -->.*?<!-- uiverse:{name}:end -->'
     replacement = f'<!-- uiverse:{name}:start -->\n{markup.strip()}\n<!-- uiverse:{name}:end -->'
     page, count = re.subn(pattern, lambda _: replacement, page, flags=re.S)
     assert count == 1, f'Missing/duplicate injection slot: {name}'
-assert 'type="checkbox" id="lt-reduce-motion"' in page, 'Native checkbox semantics must survive scoping.'
 (ROOT / 'index.html').write_text('\n'.join(line.rstrip() for line in page.splitlines()) + '\n', encoding='utf-8', newline='\n')
 print('Extracted 5 local components; generated scoped CSS and actual adapted markup.')
