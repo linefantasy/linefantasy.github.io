@@ -6,13 +6,13 @@
   <meta name="theme-color" content="#FFFFFF">
   <meta name="description" content="LineTop 的个人空间。学习软件开发，探索 AI，把有趣的想法慢慢做出来。">
   <title>LineTop. — line fantasy</title>
-  <script src="assets/theme-init.js?v=10a9ce1f03"></script>
+  <script src="assets/theme-init.js?v=ff91a2f1cd"></script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/uiverse/components.css">
-  <link rel="stylesheet" href="assets/style.css?v=5be11b5c69">
+  <link rel="stylesheet" href="assets/style.css?v=67233075ca">
   <script src="assets/main.js?v=beae06dd6c" defer></script>
-  <script src="assets/scene.js?v=48f94e9019" defer></script>
-  <script src="assets/preferences.js?v=202b02a455" defer></script>
+  <script src="assets/scene.js?v=e0d69d09eb" defer></script>
+  <script src="assets/preferences.js?v=ab5e88499e" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#about">跳到关于我</a>
@@ -27,12 +27,12 @@
     <!-- From Uiverse.io by Pradeepsaranbishnoi -->
     <!-- https://uiverse.io/Pradeepsaranbishnoi/heavy-dragonfly-92 ; real tabs/glider CSS, adapted vertically with links and panel buttons. -->
     <nav class="lt-tabs sidebar-nav" aria-label="栏目导航">
+      <a class="lt-tab" href="#personal" data-section="personal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg>探索</a>
+      <a class="lt-tab" href="#about" data-section="about"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7" r=".8" fill="currentColor"/></svg>关于</a>
       <a class="lt-tab" href="#projects" data-section="projects"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg>项目</a>
       <a class="lt-tab" href="#story" data-section="story"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>故事</a>
       <a class="lt-tab" href="#likes" data-section="likes"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5c-2-2-5-1.5-8 1.5-3-3-6-3.5-8-1.5-3 3 0 7 8 13.5 8-6.5 11-10.5 8-13.5Z"/></svg>喜好</a>
-      <a class="lt-tab" href="#personal" data-section="personal"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg>探索</a>
       <a class="lt-tab" href="#tools" data-section="tools"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-3-12-2 16"/></svg>工具</a>
-      <a class="lt-tab" href="#about" data-section="about"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7" r=".8" fill="currentColor"/></svg>关于</a>
       <span class="lt-glider" aria-hidden="true"></span>
     </nav>
     <div class="sidebar-bottom"><span class="sidebar-line" aria-hidden="true"></span><a href="#top">LineTop<span aria-hidden="true">↖</span></a></div>
@@ -42,6 +42,7 @@
   <main id="main-content">
     <div class="scene-track" id="lt-scene-track"><div class="scene-stage" id="lt-scene-stage">
     <header class="welcome" id="welcome">
+        <div class="scene-backdrop" aria-hidden="true"></div>
       <span class="sun-anchor" id="lt-sun-start" data-sun-anchor="start" aria-hidden="true"><svg class="shared-sun" viewBox="0 0 100 100"><path d="M42 0h16v31l22-22 11 11-22 22h31v16H69l22 22-11 11-22-22v31H42V69L20 91 9 80l22-22H0V42h31L9 20 20 9l22 22z"/></svg></span>
       <span class="hero-slash slash-blue" aria-hidden="true"></span><span class="hero-slash slash-lime" aria-hidden="true"></span>
       <div class="welcome-copy">
@@ -61,6 +62,7 @@
 
     <div class="site-body">
       <section class="personal section-frame" id="personal" aria-labelledby="personal-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="section-kicker"><span>学习 · 尝试 · 再向前一点</span></div>
         <div class="personal-layout">
           <div class="personal-copy"><p class="eyebrow">很高兴，在这里遇见你。</p><h2 id="personal-title">保持<span class="outline">好奇，</span><br>把想法<span class="underlined">做出来。</span></h2><p class="personal-note">我是 Line。<br>在代码与灵感之间，探索自己的可能。</p></div>
@@ -69,10 +71,12 @@
         <div class="personal-foot"><a href="#about">再认识一下我 <span aria-hidden="true">↙</span></a></div>
       </section>
       <section class="about section-frame" id="about" aria-labelledby="about-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="section-kicker"><span class="mint-label">学习进行时</span></div>
         <div class="about-layout"><h2 id="about-title">关于<span class="outline">我。</span></h2><div class="about-copy"><p>我是吉林大学软件学院的大三学生，正在学习软件开发与人工智能。喜欢用 AI 捣鼓小工具，也在认真准备考研。写代码之外，会去健身，偶尔玩玩游戏。</p><p class="about-aside">把这里当作一块小小的试验田，记录学习，也慢慢放下自己的作品。</p></div></div>
       </section>
       <section class="projects section-frame" id="projects" aria-labelledby="projects-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="section-kicker"><span>一些正在发芽的想法</span></div>
         <div class="projects-heading"><h2 id="projects-title">慢慢<span class="outline">做，</span><br>慢慢<span class="outline">有。</span></h2><p>作品还在整理。<br>先留两个位置，等想法长大。</p></div>
         <div class="project-grid">
@@ -84,18 +88,22 @@
         </div>
       </section>
       <section class="story content-scene section-frame" id="story" aria-labelledby="story-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="content-scene-heading"><h2 id="story-title">慢慢<span class="outline">记录。</span></h2><span class="content-status">故事</span></div>
         <div class="content-scene-body"><p class="content-lead">故事内容待整理。</p><p class="content-note">这里会慢慢留下真实的记录。</p></div>
       </section>
       <section class="likes content-scene section-frame" id="likes" aria-labelledby="likes-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="content-scene-heading"><h2 id="likes-title">代码<span class="outline">之外。</span></h2><span class="content-status">喜好</span></div>
         <div class="interest-grid"><article class="interest-card"><span class="interest-symbol" aria-hidden="true">＋</span><h3>健身</h3><p>也喜欢动起来。</p></article><article class="interest-card"><span class="interest-symbol" aria-hidden="true">↗</span><h3>游戏</h3><p>偶尔玩玩游戏。</p></article></div>
       </section>
       <section class="tools content-scene section-frame" id="tools" aria-labelledby="tools-title">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="content-scene-heading"><h2 id="tools-title">有用，<span class="outline">也有趣。</span></h2><span class="content-status">工具</span></div>
         <div class="content-scene-body"><p class="content-lead">工具还在整理。</p><p class="content-note">有可以使用的小工具时，再放到这里。</p><span class="project-status">筹备中</span></div>
       </section>
       <footer class="site-footer section-frame" id="footer">
+        <div class="scene-backdrop" aria-hidden="true"></div>
         <div class="footer-top"><a href="#top">回到首页 ↑</a></div>
         <div class="footer-main"><p>探索<span class="outline">继续。</span></p><div class="github-entry"><!-- uiverse:github:start -->
 <!-- From Uiverse.io by wilsondesouza -->

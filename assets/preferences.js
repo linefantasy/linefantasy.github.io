@@ -13,7 +13,7 @@
   function syncTheme() {
     const dark=root.dataset.theme==='dark', label=dark ? '切换浅色模式' : '切换深色模式';
     root.style.colorScheme=dark ? 'dark' : 'light';
-    document.querySelector('meta[name="theme-color"]').content=dark ? '#444444' : '#FFFFFF';
+    document.querySelector('meta[name="theme-color"]').content=dark ? '#000000' : '#FFFFFF';
     themeButton.setAttribute('aria-label',label); themeButton.setAttribute('aria-pressed',String(dark)); themeTip.textContent=label;
     document.querySelectorAll('[data-theme-wordmark]').forEach(image => {
       const attr=image.tagName==='OBJECT' ? 'data' : 'src';

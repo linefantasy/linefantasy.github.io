@@ -86,6 +86,7 @@
     const u = Math.max(0, Math.min(total, scrollY >= max-1 ? total : scrollY/H));
     progress = u;
     const p = clamp(u/.90);
+    scenes[0].style.setProperty('--welcome-band-opacity',String(1-ease(.02,.30,p)));
     const alpha = ids.map((_,i) => i===0 ? 1-ease(.15,.75,p) : i===1 ? 1 : 0);
     let current = p < .46 ? 0 : 1;
     for (let i=1; i<spans.length; i++) {
@@ -127,6 +128,7 @@
       scene.classList.remove('scene-minimal');
       scene.removeAttribute('aria-hidden'); delete scene.dataset.current;
     });
+    scenes[0].style.removeProperty('--welcome-band-opacity');
     personalParts.forEach(el => el.style.removeProperty('opacity'));
     scenes[0]?.querySelector('.welcome-bottom')?.style.removeProperty('opacity');
     if (sun) {

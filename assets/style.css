@@ -23,7 +23,7 @@ main { margin-left:var(--sidebar-width); min-width:0; }
 .outline { color:var(--surface); -webkit-text-stroke:1.4px var(--text); }
 
 /* Same source tabs/tab/glider mechanism, now on a vertical axis. */
-.site-sidebar { position:fixed; inset:0 auto 0 0; width:var(--sidebar-width); z-index:40; display:flex; flex-direction:column; padding:48px 22px 25px; background:var(--lime); border-right:1px solid var(--text); overflow-y:auto; }
+.site-sidebar { position:fixed; inset:0 auto 0 0; width:var(--sidebar-width); z-index:40; display:flex; flex-direction:column; padding:48px 22px 25px; background:var(--lime); border:0; overflow-y:auto; }
 /* Keep the fixed navigation fully painted when the embedded wordmark changes load state. */
 .site-sidebar { transform:translateZ(0); color:var(--text); }
 .sidebar-profile { display:flex; flex-direction:column; align-items:center; gap:22px; margin-bottom:42px; }
@@ -134,11 +134,11 @@ html[data-reduced-motion="true"] .lt-project-inner { transform:none!important; }
   :root { --gutter:40px; }
   main { margin-left:0; }
   html { scroll-padding-top:88px; }
-  .site-sidebar { position:relative; width:100%; padding:28px; border-right:0; border-bottom:1px solid var(--text); }
+  .site-sidebar { position:relative; width:100%; padding:28px; border:0; }
   .sidebar-profile { flex-direction:row; justify-content:center; margin-bottom:24px; }
   .sidebar-nav.lt-tabs { max-width:360px; width:100%; margin:auto; }
   .sidebar-bottom { display:none; }
-  .js .site-sidebar { position:fixed; inset:0 auto 0 0; width:min(280px,calc(100vw - 48px)); padding:60px 26px 28px; visibility:hidden; transform:translateX(-105%); border-right:1px solid var(--text); border-bottom:0; transition:transform .2s var(--ease),visibility .2s; }
+  .js .site-sidebar { position:fixed; inset:0 auto 0 0; width:min(280px,calc(100vw - 48px)); padding:60px 26px 28px; visibility:hidden; transform:translateX(-105%); border:0; transition:transform .2s var(--ease),visibility .2s; }
   .js.menu-open .site-sidebar { visibility:visible; transform:none; }
   .js .sidebar-profile { flex-direction:column; margin-bottom:36px; }
   .js .sidebar-bottom { display:block; }
@@ -297,7 +297,26 @@ html[data-reduced-motion="true"] .lt-project-inner { transform:none!important; }
 
 /* Exact light values remain above. Dark changes semantic roles, never --white. */
 html { color-scheme:light; background:var(--surface); }
-html[data-theme="dark"] { color-scheme:dark; --surface:#444444; --surface-soft:#505050; --text:#F2F6F8; --secondary:#D5DFE5; --border:#8A989F; }
+html[data-theme="dark"] { color-scheme:dark; --surface:#000000; --surface-soft:#101814; --text:#F1F4EA; --secondary:#BAC9BF; --border:#76877F; }
+/* One 22-degree drawing language for both themes and every scene. Only the
+   decorative layer clips its paint; text and focus outlines remain unclipped. */
+.welcome,.section-frame { position:relative; isolation:isolate; }
+.scene-backdrop { position:absolute; inset:0; z-index:-1; overflow:clip; pointer-events:none; }
+.scene-backdrop::before,.scene-backdrop::after { content:""; position:absolute; top:-160px; left:72%; width:100px; height:280px; background:var(--lime); transform:skewX(-22deg); transform-origin:top left; pointer-events:none; }
+.scene-backdrop::after { display:none; }
+.welcome .scene-backdrop { opacity:var(--welcome-band-opacity,1); }
+.welcome .scene-backdrop::before { top:0; left:calc(var(--scene-height,100svh) * .404 - 120px); width:clamp(120px,12vw,190px); height:100%; }
+.welcome .scene-backdrop::after { display:block; top:0; left:calc(var(--scene-height,100svh) * .404 - 80px + clamp(120px,12vw,190px)); width:46px; height:100%; }
+.welcome-copy { margin-left:clamp(190px,25vw,360px); }
+.hero-slash { display:none; }
+.personal .scene-backdrop::before { left:28%; top:-170px; height:280px; width:110px; }
+.about .scene-backdrop::before { left:94%; top:auto; bottom:-150px; height:290px; width:130px; }
+.projects .scene-backdrop::before { left:80%; top:-170px; height:280px; width:125px; }
+.story .scene-backdrop::before { left:84%; top:-140px; height:280px; width:100px; }
+.likes .scene-backdrop::before { left:18%; top:auto; bottom:-150px; height:260px; width:120px; }
+.tools .scene-backdrop::before { left:91%; top:-130px; height:270px; width:125px; }
+.site-footer .scene-backdrop::before { left:42%; top:auto; bottom:-180px; height:240px; width:120px; }
+[data-theme="dark"] .outline { -webkit-text-stroke:1.5px var(--sky); }
 [data-theme="dark"] .site-sidebar { --text:#12354F; --secondary:#426077; --surface:#FFFFFF; --border:#12354F; }
 [data-theme="dark"] .menu-trigger { color:var(--ink); border-color:var(--ink); }
 [data-theme="dark"] .menu-icon i { background:var(--ink); }
@@ -309,6 +328,15 @@ html[data-theme="dark"] { color-scheme:dark; --surface:#444444; --surface-soft:#
 [data-theme="dark"] .lt-social .lt-icon-content a:hover,[data-theme="dark"] .lt-social .lt-icon-content a:focus-visible { color:var(--ink); }
 [data-theme="dark"] .lt-social .lt-tooltip { color:var(--ink); }
 [data-theme="dark"] ::selection { color:var(--ink); }
+@media(max-width:1100px) and (min-width:901px) { .welcome-copy { margin-left:260px; } }
+@media(max-width:900px) {
+  .welcome-copy { margin-left:0; }
+  .welcome .scene-backdrop::before { left:52%; top:-90px; width:72px; height:240px; }
+  .welcome .scene-backdrop::after { left:78%; top:-90px; width:18px; height:240px; }
+  .personal .scene-backdrop::before,.projects .scene-backdrop::before,.story .scene-backdrop::before,.tools .scene-backdrop::before { left:73%; top:-120px; width:68px; height:205px; }
+  .about .scene-backdrop::before,.likes .scene-backdrop::before { left:20%; bottom:-150px; height:220px; width:82px; }
+  .site-footer .scene-backdrop::before { left:40%; bottom:-180px; height:230px; width:80px; }
+}
 html[data-reduced-motion="true"] .quick-action,html[data-reduced-motion="true"] .quick-button,html[data-reduced-motion="true"] .settings-gear>svg { transform:none!important; }
 @media(prefers-reduced-motion:reduce) { .quick-action,.quick-button,.settings-gear>svg { transform:none!important; } }
 @media(max-width:600px) {
