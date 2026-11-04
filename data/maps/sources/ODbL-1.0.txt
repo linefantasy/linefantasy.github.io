@@ -1,0 +1,10 @@
+Open Database License (ODbL) v1.0
+Official full license: https://opendatacommons.org/licenses/odbl/1-0/
+Plain text: https://opendatacommons.org/licenses/odbl/odbl-10.txt
+
+The derived Japan boundary dataset and its region catalog are offered under ODbL 1.0.
+Contains information from OpenStreetMap contributors / Wambacher via geoBoundaries.
+https://www.openstreetmap.org/copyright
+https://www.geoboundaries.org/api/current/gbOpen/JPN/ADM1/
+
+This file provides the license URI and attribution, not a reproduction of the full license.

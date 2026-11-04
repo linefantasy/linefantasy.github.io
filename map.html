@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN" data-page="projects">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="description" content="LineTop 的个人空间。学习软件开发，探索 AI，把有趣的想法慢慢做出来。">
+  <title>地图 · Map Explorer — LineTop</title>
+  <link rel="icon" href="assets/favicon.svg?v=b7f938cf8d" type="image/svg+xml">
+  <script src="assets/theme-init.js?v=1f6e0ffb8f"></script>
+  <link rel="stylesheet" href="assets/uiverse/components.css?v=50756e38bc">
+  <link rel="stylesheet" href="assets/style.css?v=69942a5b1a">
+  <script src="assets/main.js?v=b29335e6c4" defer></script>
+  <script src="assets/preferences.js?v=8df5180be5" defer></script>
+  <link rel="stylesheet" href="assets/maps/map.css?v=f7c465a275">
+  <script src="assets/vendor/d3-array.min.js?v=80aa70d0cd" defer></script>
+  <script src="assets/vendor/d3-geo.min.js?v=23e574f1e8" defer></script>
+  <script type="module" src="assets/maps/map-explorer.mjs?v=66ee2c388d"></script>
+</head>
+<body class="map-page">
+  <a class="skip-link" href="#map-svg">跳到地图</a>
+  <button class="menu-trigger" type="button" aria-controls="lt-sidebar" aria-expanded="false" aria-label="打开导航菜单" hidden><span class="menu-icon" aria-hidden="true"><i></i><i></i></span><span>菜单</span></button>
+  <div class="menu-backdrop" hidden></div>
+  <aside class="site-sidebar" id="lt-sidebar" aria-label="个人与导航">
+    <button class="sidebar-close" type="button" aria-label="关闭导航菜单" hidden>×</button>
+    <div class="sidebar-profile">
+      <span class="avatar-button"><img id="lt-avatar" src="头像1.jpg" alt="line 的头像" width="96" height="96" data-fallback="assets/avatar-default.svg"></span>
+      <a class="profile-name" href="index.html#top" aria-label="line，回到首页">line<span aria-hidden="true">.</span></a>
+    </div>
+    <!-- From Uiverse.io by Pradeepsaranbishnoi -->
+    <!-- https://uiverse.io/Pradeepsaranbishnoi/heavy-dragonfly-92 ; real tabs/glider CSS, adapted vertically with links and panel buttons. -->
+    <nav class="lt-tabs sidebar-nav" aria-label="栏目导航">
+      <a class="lt-tab" href="index.html#personal" data-section="home"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg>首页</a>
+      <a class="lt-tab" href="index.html#projects" data-section="projects"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg>项目</a>
+      <a class="lt-tab" href="index.html#story" data-section="story"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>故事</a>
+      <a class="lt-tab" href="index.html#about" data-section="about"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4m8-8 4 4-4 4m-3-12-2 16"/></svg>关于</a>
+      <span class="lt-glider" aria-hidden="true"></span>
+    </nav>
+    <div class="sidebar-bottom"><span class="sidebar-line" aria-hidden="true"></span><a href="index.html#top">LineTop<span aria-hidden="true">↖</span></a></div>
+    <noscript><p class="noscript-note">所有栏目均可直接浏览；显示设置需要 JavaScript。</p></noscript>
+  </aside>
+
+  <main id="main-content">
+    <header class="map-page-header"><div><a class="map-breadcrumb" href="index.html#projects">← 返回项目 · AI 小工具</a><h1>地图 <span>Map Explorer</span></h1></div><p class="map-page-intro">探索世界及各地行政区域，通过交互式地图了解国家、地区及其基本信息。</p></header>
+    <section class="map-explorer" id="map-explorer" aria-label="交互式地图工具" data-ready="false">
+      <div class="map-toolbar"><div class="map-tabs" role="tablist" aria-label="选择地图">
+        <button class="map-tab" role="tab" id="map-tab-world" data-map="world" aria-selected="true" aria-controls="map-panel">世界地图</button>
+        <button class="map-tab" role="tab" id="map-tab-china" data-map="china" aria-selected="false" aria-controls="map-panel" tabindex="-1">中国地图</button>
+        <button class="map-tab" role="tab" id="map-tab-usa" data-map="usa" aria-selected="false" aria-controls="map-panel" tabindex="-1">美国地图</button>
+        <button class="map-tab" role="tab" id="map-tab-japan" data-map="japan" aria-selected="false" aria-controls="map-panel" tabindex="-1">日本地图</button>
+      </div><div class="map-projection" id="map-projection" role="group" aria-label="投影" aria-describedby="map-projection-help"><span>投影</span><button type="button" data-projection="equal-earth" aria-pressed="false" disabled>Equal Earth</button><button type="button" data-projection="equirectangular" aria-pressed="false" disabled>等距圆柱</button><button type="button" data-projection="mercator" aria-pressed="false" disabled>墨卡托</button></div><div class="map-legend" role="group" aria-label="高亮图例"><span><i aria-hidden="true"></i>悬停</span><span><i aria-hidden="true"></i>已选</span></div></div>
+      <p class="map-projection-help" id="map-projection-help">Equal Earth 为上一版默认投影；等距圆柱是矩形地图，墨卡托会放大高纬地区。</p>
+      <div id="map-panel" role="tabpanel" aria-labelledby="map-tab-world" aria-busy="true">
+        <div class="map-workspace">
+          <div class="map-main">
+            <div class="map-region-picker"><label>搜索区域<input id="map-search" type="search" placeholder="中文、英文或标识" autocomplete="off" aria-controls="map-region"></label><label>选择区域<select id="map-region" disabled><option>正在加载…</option></select></label></div>
+            <div class="map-canvas">
+              <svg id="map-svg" viewBox="0 0 1000 620" role="group" tabindex="0" data-small-regions="hidden" aria-label="地图加载中" aria-describedby="map-help map-projection-help"></svg>
+              <div class="map-tooltip" id="map-tooltip" role="tooltip" hidden></div>
+              <div class="map-loading" id="map-loading" role="status"><p>正在加载本地矢量地图…</p></div>
+              <div class="map-error" id="map-error" role="alert" hidden><p id="map-error-message"></p><button id="map-retry" type="button">重新加载</button></div>
+              <div class="map-controls" role="group" aria-label="地图视图控制">
+                <button data-command="zoom-in" type="button" aria-label="放大地图">＋</button><button data-command="reset" type="button" aria-label="恢复默认视角">⟲</button><button data-command="zoom-out" type="button" aria-label="缩小地图">−</button>
+                <button data-command="left" type="button" aria-label="向左移动视图">←</button><button data-command="up" type="button" aria-label="向上移动视图">↑</button><button data-command="right" type="button" aria-label="向右移动视图">→</button>
+                <span aria-hidden="true"></span><button data-command="down" type="button" aria-label="向下移动视图">↓</button><span aria-hidden="true"></span>
+                <output id="map-zoom-level" aria-label="缩放倍率">100%</output>
+              </div>
+            </div>
+            <div class="map-actions"><p id="map-help">滚轮／双指缩放，拖动移动。键盘方向键平移，＋／−缩放，R恢复。放大超过 600% 显示微小区域定位点，也可从选择器定位。</p><div><button class="map-action" id="map-locate" type="button" disabled>定位所选</button><button class="map-action" id="map-show-detail" type="button" disabled>区域详情</button></div></div>
+          </div>
+          <aside id="map-detail" class="map-detail" aria-labelledby="map-detail-label" data-open="false">
+            <div class="map-detail-heading"><h2 id="map-detail-label">区域详情</h2><button id="map-detail-close" type="button" aria-label="关闭区域详情">×</button></div>
+            <div class="map-detail-empty" data-detail-empty><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><p>从地图开始探索。</p><p>悬停查看名称，点击国家或行政区域，基本信息会显示在这里。</p></div>
+            <div data-detail-content hidden><span data-detail-flag aria-label="国旗"></span><h3 data-detail-title></h3><p data-detail-en></p><div class="map-region-id"><code data-detail-id></code><span data-detail-kind></span></div><p class="map-data-status">边界与名称已接入。人口、GDP 等统计数据尚未接入，不代表数值为零。</p><dl data-detail-fields></dl><div data-detail-images></div></div>
+          </aside>
+        </div>
+        <footer class="map-sources"><p><strong id="map-title">地图</strong> · <span id="map-count">等待加载</span></p><p id="map-source-note"></p><div class="map-sources-links"><a id="map-attribution">数据来源</a><a id="map-license">许可</a><a id="map-boundary-download" download>本地边界数据</a><a href="data/maps/SOURCES.md">完整来源与口径</a></div></footer>
+      </div>
+      <p id="map-status" class="visually-hidden" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p>交互地图需要 JavaScript。你仍可<a href="index.html#projects">返回项目</a>，或下载本地<a href="data/maps/world.geojson">世界</a>、<a href="data/maps/china.geojson">中国</a>、<a href="data/maps/usa.geojson">美国</a>、<a href="data/maps/japan.geojson">日本</a>边界文件。</p></noscript>
+  </main>
+
+  <div class="quick-settings" id="lt-quick-settings" data-open="false" role="region" aria-label="显示与动态设置" hidden>
+    <button class="settings-gear" id="lt-settings-gear" type="button" aria-label="展开显示设置" aria-expanded="false" aria-controls="lt-quick-actions">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3-.6 2.4-2 .9-2.3-.7-2 3.5 1.8 1.7v2.4L2.1 15l2 3.5 2.3-.7 2 .9L9 21h6l.6-2.3 2-.9 2.3.7 2-3.5-1.8-1.8v-2.4l1.8-1.7-2-3.5-2.3.7-2-.9L15 3Z"/><circle cx="12" cy="12" r="3.5"/></svg>
+    </button>
+    <div class="quick-actions" id="lt-quick-actions" aria-hidden="true" inert>
+      <div class="quick-action">
+        <button id="lt-theme-toggle" class="quick-button" type="button" aria-label="切换深色模式" aria-pressed="false" aria-describedby="lt-theme-tip"><span class="quick-filled" aria-hidden="true"></span><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+        <span class="quick-tooltip" id="lt-theme-tip" role="tooltip">切换深色模式</span>
+      </div>
+      <div class="quick-action">
+        <button id="lt-palette-toggle" class="quick-button" type="button" aria-label="主题配色：原始主题" aria-expanded="false" aria-controls="lt-palette-panel" aria-describedby="lt-palette-tip"><span class="quick-filled" aria-hidden="true"></span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.6 1.6 0 0 1 1-2.8h2A4 4 0 0 0 21 10a9 9 0 0 0-9-7Z"/><circle cx="7" cy="10" r=".8"/><circle cx="10" cy="6.5" r=".8"/><circle cx="15" cy="7" r=".8"/></svg></button>
+        <span class="quick-tooltip" id="lt-palette-tip" role="tooltip">主题配色</span>
+      </div>
+      <div class="quick-action">
+        <button id="lt-motion-toggle" class="quick-button" type="button" aria-label="减少动态效果" aria-pressed="false" aria-describedby="lt-motion-tip"><span class="quick-filled" aria-hidden="true"></span><svg class="motion-pause" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 5v14M16 5v14"/></svg><svg class="motion-play" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m8 4 12 8-12 8Z"/></svg></button>
+        <span class="quick-tooltip" id="lt-motion-tip" role="tooltip">减少动态效果</span>
+      </div>
+    </div>
+    <section id="lt-palette-panel" class="palette-panel" role="dialog" aria-labelledby="lt-palette-title" hidden>
+      <div class="palette-heading"><h2 id="lt-palette-title">主题配色</h2><button id="lt-palette-close" type="button" aria-label="关闭主题配色">×</button></div>
+      <p class="palette-description">配色与明暗模式分别设置，即选即用。</p>
+      <fieldset><legend class="visually-hidden">选择主题配色</legend><div id="lt-palette-options" class="palette-options"></div></fieldset>
+      <p id="lt-palette-status" class="palette-status" role="status" aria-live="polite">选择会自动保存在当前浏览器。</p>
+    </section>
+  </div>
+  <p id="preference-status" class="visually-hidden" role="status" aria-live="polite"></p>
+</body>
+</html>

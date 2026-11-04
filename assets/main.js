@@ -11,14 +11,14 @@
   const nav = document.querySelector('.sidebar-nav');
   const narrow = matchMedia('(max-width: 900px)');
   const sectionLinks = [...nav.querySelectorAll('a[data-section]')];
-  const sections = [...document.querySelectorAll('.site-body>.section-frame')];
+  const sections = [...document.querySelectorAll('[data-nav-group]')];
   let menuOpen = false, menuScroll = 0, menuExperience = '', frame = 0;
   function updateCurrent() {
     frame = 0;
-    let active = '';
+    let active = root.dataset.page || 'welcome';
     if (root.dataset.experience === 'scene') active = root.dataset.sceneCurrent;
     else sections.forEach(section => { if (section.getBoundingClientRect().top <= Math.min(200,innerHeight*.35)) active = section.id; });
-    if (active === 'footer') active = '';
+    active = document.getElementById(active)?.dataset.navGroup || (root.dataset.page ? active : 'home');
     sectionLinks.forEach(link => {
       if (link.dataset.section === active) link.setAttribute('aria-current','location');
       else link.removeAttribute('aria-current');
@@ -64,13 +64,8 @@
   }
   avatar.addEventListener('error',avatarFallback);
   if (avatar.complete && !avatar.naturalWidth) avatarFallback();
-  const wordmark=document.querySelector('.hero-wordmark');
-  function wordmarkFallback() {
-    wordmark.hidden=true; document.querySelector('.wordmark-fallback').hidden=false;
-  }
-  wordmark.addEventListener('error',wordmarkFallback);
-  wordmark.addEventListener('load',() => { wordmark.hidden=false; document.querySelector('.wordmark-fallback').hidden=true; });
-  if (wordmark.complete && !wordmark.naturalWidth) wordmarkFallback();
+  // The original wordmark paths now live inline: no separate image load can fail,
+  // and both instances inherit palette/mode colors without a network round trip.
   menuButton.addEventListener('click',() => menuOpen ? closeMenu() : openMenu());
   menuClose.addEventListener('click',() => closeMenu());
   backdrop.addEventListener('click',() => closeMenu());

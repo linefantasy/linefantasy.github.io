@@ -4,7 +4,8 @@
   const root = document.documentElement;
   const stage = document.getElementById('lt-scene-stage');
   const track = document.getElementById('lt-scene-track');
-  const ids = ['welcome', 'personal', 'about', 'projects', 'story', 'likes', 'tools', 'footer'];
+  // Three navigation groups retain the original eight content scenes/handoff.
+  const ids = ['welcome', 'personal', 'projects', 'story', 'story-notes', 'about', 'likes', 'footer'];
   const scenes = ids.map(id => document.getElementById(id));
   const sun = document.querySelector('.shared-sun');
   const start = document.getElementById('lt-sun-start');
@@ -31,11 +32,18 @@
   const animations = () => { intro.forEach(animation => animation.cancel()); intro = []; };
   const reduced = () => root.dataset.reducedMotion === 'true' || matchMedia('(prefers-reduced-motion: reduce)').matches;
   function notify() { document.dispatchEvent(new CustomEvent('linetop:scenechange')); }
-  function canonical(id) { return id === 'welcome' ? '#top' : `#${id}`; }
+  function canonical(id) {
+    if (id === 'welcome') return '#top';
+    if (id === 'story-notes') return '#story';
+    if (id === 'likes' || id === 'footer') return '#about';
+    return `#${id}`;
+  }
+  const resolveId = id => id === 'top' ? 'welcome' : id === 'tools' ? 'about' : id;
   function idFromHash() {
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return null; }
-    if (!id || id === 'top') return 'welcome';
+    if (!id) return 'welcome';
+    id = resolveId(id);
     return ids.includes(id) ? id : null;
   }
   function focusScene(id) {
@@ -60,7 +68,7 @@
       return;
     }
     clearTimeout(historyTimer); historyTimer = 0;
-    history.replaceState({...history.state, ltScene:active, ltScenePosition:u}, '', `${location.pathname}${location.search}${hash}`);
+    history.replaceState({...history.state, ltNavigationVersion:2, ltScene:active, ltScenePosition:u}, '', `${location.pathname}${location.search}${hash}`);
     lastEntry = key; lastHistoryWrite = now;
   }
   function setCurrent(id) {
@@ -192,7 +200,7 @@
   }
   function initialPosition() {
     const id = idFromHash() || 'welcome', state = history.state;
-    return state?.ltScene === id && Number.isFinite(state.ltScenePosition) ? Math.max(0,Math.min(total,state.ltScenePosition)) : stops[ids.indexOf(id)];
+    return state?.ltNavigationVersion === 2 && ids.includes(state.ltScene) && canonical(state.ltScene) === canonical(id) && Number.isFinite(state.ltScenePosition) ? Math.max(0,Math.min(total,state.ltScenePosition)) : stops[ids.indexOf(id)];
   }
   function requestMeasure() { if (!failed && !measureFrame) measureFrame = requestAnimationFrame(measure); }
   function enter() {
@@ -249,7 +257,7 @@
       const url = new URL(link.href,location.href);
       if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search || !url.hash) return;
       let id; try { id = decodeURIComponent(url.hash.slice(1)); } catch (_) { return; }
-      if (id === 'top') id = 'welcome';
+      id = resolveId(id);
       if (!ids.includes(id)) return;
       event.preventDefault(); drive(id);
     });

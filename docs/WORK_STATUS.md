@@ -1,5 +1,73 @@
 # LineTop 当前交接
 
+更新：2026-11-04（北京时间，项目独立栏目与地图入口）。入口：AGENTS → PROJECT_CONSTRAINTS → 本文 → 根design.md顶部“项目独立栏目与地图入口” → 地图修订1报告与SOURCES。
+
+## 当前任务：项目独立栏目、地图入口直连与上传（已实现，待用户查看）
+
+- 用户明确要求：项目（慢慢做，慢慢有）独立为侧栏栏目，插在首页与故事之间；原页面内容不改，只改侧栏和传送路径；地图入口移到项目-AI小工具，直接进`map.html`，不经过关于。并明确授权本轮提交、推送到 GitHub。
+- 侧栏四项：首页/项目/故事/关于；`projects`场景`data-nav-group="projects"`，滚动/历史/焦点沿用`scene.js`；项目卡`.tool-catalog-link`指向`map.html`；关于不再有重复地图入口。
+- `map.html`已用`scripts/build-map-page.py`重生成：四项侧栏、`data-page="projects"`、面包屑与无脚本返回项目；首页/故事/关于正文未改。
+- 验证：`node scripts/test-maps.mjs`、`node scripts/test-theme.mjs`及浏览器导航/地图入口检查；具体结果见下方记录。未验证实体设备/其他浏览器/线上。
+- 本轮按用户明确授权提交并推送；不部署/DNS、不进入第二阶段。提交哈希见本轮`git log`。
+
+---
+
+以下为上一轮地图修订1的交接（已实现）：
+
+## 上一轮：港澳台合并、三种世界投影、定位点与海面误选修复
+
+- 最新用户授权覆盖此前来源暂停：优先港澳台属于中国，克什米尔等难以核对边界暂缓。又要求恢复原Equal Earth为第一项/默认，共三种世界投影，并修复海面误命中南极洲。本轮不再因全世界边界来源调查阻塞交付。
+- 世界原50m同源TWN/HKG/MAC全部几何并入CHN，删除三个世界独立选择，239要素；旧三个ID世界链接选CHN。中国34省级几何/目录原字节不变。其他争议边界沿用原50m，不宣称官方标准图或完整主权归一化已完成。
+- 世界Equal Earth/等距圆柱/墨卡托；中国、日本Mercator/等距圆柱；美国Albers USA。地图＋投影缓存，切换不fetch，保选区/详情并重置视角；URL/刷新/history v2和每图恢复。toolbar控件44px，既有语义主题色。
+- 点按显示倍率>600%才显示，初始display:none；视觉5 CSS px＋透明描边≈19px命中，64x与resize恒定。SVG键盘/选择器保留。
+- 海面误选南极洲已复现定位到DP简化后的Mercator极区裁剪；保留跨180°近极点环源顶点修复。Node回归先失败再通过，浏览器海面hover/click与南极陆地选择已检查；最终全量319项通过、正常页面运行错误0，详见报告。
+- 最终Node数据测试通过；原生CDP浏览器319项通过，含三投影海面/南极陆地、缩放阈值/64x命中、历史/触摸/主题及首页回归。1440×900/768×1024/375×812及320补充布局；模拟触摸不等于实体设备。数据可复现、保护文件SHA已核对。
+- 单Agent实施。保留开工HEAD d1df847与52文件基线、全部原未提交工作；原生成器仅运行不改。首页/主题/场景/头像/CNAME/Uiverse保护，无新依赖、提交/推送/部署/DNS、二阶段统计/照片。
+- 数据生成：python scripts/prepare-map-data.py .tmp/maps-stage1 --world-only；页面生成：python scripts/build-map-page.py；测试：node scripts/test-maps.mjs 与更新后的test-maps-browser.mjs。最新证据.tmp/map-revision-1/browser-final、checks.json、scope-check.json及process.html；旧browser的270项为中间版本，不能替代最终验证。下一步仅等用户反馈，不自行扩大边界核查或进入第二阶段。
+
+---
+
+## 下方为第一阶段实现的历史交接
+
+更新：2026-11-04（北京时间，导航/地图第一阶段）。入口：AGENTS → PROJECT_CONSTRAINTS → 本文 → 根design.md顶部导航/地图节 → [第一阶段验证](verification-map-stage1-2026-11-04.md) → 源码。
+
+## 当前任务：第一阶段已实现，等待用户反馈／第二阶段新任务
+
+- 用户明确授权导航重构＋真实地图基础；额外确认代码之外与整个页脚并入关于、项目保留首页、地图独立工作区。主入口仅首页/故事/关于；首页目标仍是原个人展示。保留原26段标题/正文、原主内容SVG路径、外链与首页太阳接力。
+- 三组内部仍用原八子场景：welcome/personal/projects → story/story-notes → about/likes/footer，旧tools锚点解析到about；历史state版本化保留组内位置。原关于正文与原故事在故事组，原工具/兴趣/页脚在关于组。
+- AI目录新增地图入口→map.html。4图同工作区即时切换：世界242国家/地区、中国34省级区、美国50州＋DC、日本47都道府县。来源与许可/年份见data/maps/SOURCES.md；日本为2017 OSM/Wambacher经geoBoundaries，不是官方实时地图。
+- 新assets/maps统一SVG、Pointer Events、Tooltip、schema详情、数据/图片服务；仅增加本地D3-geo/array。data/maps几何和data/regions属性分离，统计null/照片空数组，留第二阶段。地图按需加载、缓存/重试、鼠标/触摸缩放平移、键盘/按钮替代及history均已实测。
+- 实际验证：地图/导航155项；主题192对比度单元；更新后的原主题完整矩阵544项/384布局，quick22项；26正文保留；最终四图浅深8组合axe零确定违规、1类人工项。模拟触摸不等于实体手机，详见新报告和.tmp/maps-stage1。
+- 按requesting-code-review技能安排map_stage1_review只读审阅，主Agent唯一编辑集成；两项P2已先复现失败再修复并复验，复阅无剩余重要问题。空国旗ARIA局部修正另有最终axe复扫。
+- 本轮修改index/main/scene/style、测试期待和当前文档；新增map.html、assets/maps、assets/vendor、data及生成/验证脚本。原preferences.js/theme-init.js、原SVG/头像/CNAME、Uiverse/原资料和旧报告保持；开工已有多配色未提交工作与未跟踪推送教程保留，不将其冒称本轮新增。
+- 没有安装npm包、暂存、提交、推送、部署或改DNS。仅完成第一阶段；不要自行接入第二阶段统计/图片。国旗ISO emoji可能在Windows显示字母，图旗资源第二阶段完善。
+- 本地首页http://127.0.0.1:8765/；工具http://127.0.0.1:8765/map.html；实际截图.tmp/maps-stage1/process.html。生成共享shell/指纹：python scripts/build-map-page.py。测试命令与未测边界在第一阶段报告。
+
+---
+
+## 下方为多配色阶段及更早的历史交接
+
+### 多配色阶段历史入口
+
+更新：2026-11-04（北京时间）。阅读顺序：AGENTS → PROJECT_CONSTRAINTS → 本文 → 唯一根design.md顶部2026-11-04节 → [本轮主题验证](verification-themes-2026-11-04.md) → 源码。
+
+## 当前任务：多配色主题已实现，待用户视觉反馈
+
+- 用户明确授权完整实现原始＋7套配色，全站适配及测试；不涉及提交/推送/部署。本轮继续保留静态栈、八场景、原始内容和核心动效。
+- 5个产品文件修改：index.html、assets/style.css、theme-init.js、preferences.js、main.js。8套精确基础色集中配置；继承原lime/mint/sky别名。设置齿轮新增原生radio配色面板；明暗与配色分别保存，首访original/light，存储失败有反馈。手机面板打开时收起底下的操作图标，关闭后恢复，焦点与菜单隔离保留。
+- 原字形路径复制为两份内联SVG，ID独立；原SVG仍保留。全站背景/按钮/标签/链接/图标/伪元素/动效与favicon响应，白黑和中性色由明暗模式管理。部分装饰/卡片转用两种辅色，未更改用户提供基础色。
+- 新增scripts/test-theme.mjs及test-theme-browser.mjs，无新增依赖。配置/192组对比度通过；浏览器主矩阵544项、384布局通过；最终局部115项与操作/后备22项通过，最终正常页面零控制台错误；16组合axe零确定违规、1类人工项。真实隔离profile重开恢复及跨标签同步已测。详细版本/截图/命令与未测边界见本轮报告，旧结果不自动适用于本轮。
+- 按requesting-code-review技能安排theme_review只读审阅；主Agent唯一编辑和集成人。审阅发现手机关闭按钮前景继承不合适，已修复并覆盖16组合；面板层级与深色描边也已补充复验。无剩余重要问题。
+- scene.js、原SVG、头像、CNAME、原始色板/资料、Uiverse及生成器未改。开工HEAD d1df847、暂存区空，唯一既有未跟踪docs/推送教程.txt保留。未安装、暂存、提交、推送、部署或改DNS。
+- 未验证实体设备、其他浏览器、完整读屏、真实缩放矩阵、高帧率与线上；没有已知遗漏运行组件。实现/测试不代表用户视觉确认。
+- 本地服务http://127.0.0.1:8765/；截图查看器http://127.0.0.1:8765/.tmp/palettes-2026-11-04/process.html。停止后按README启动。下一步仅等待用户反馈/新任务；2026-11-01的推送授权仅属当轮，不延续到本轮。
+
+---
+
+## 以下为2026-11-01及更早的历史交接
+
+### 历史交接入口
+
 更新：2026-11-01（北京时间）。固定阅读顺序：AGENTS → [PROJECT_CONSTRAINTS](PROJECT_CONSTRAINTS.md) → 本文 → [唯一当前 design.md](../design.md) → 对应验证与相关源码。
 
 ## 当前目标与状态

@@ -1,0 +1,40 @@
+  <main id="main-content">
+    <header class="map-page-header"><div><a class="map-breadcrumb" href="index.html#projects">← 返回项目 · AI 小工具</a><h1>地图 <span>Map Explorer</span></h1></div><p class="map-page-intro">探索世界及各地行政区域，通过交互式地图了解国家、地区及其基本信息。</p></header>
+    <section class="map-explorer" id="map-explorer" aria-label="交互式地图工具" data-ready="false">
+      <div class="map-toolbar"><div class="map-tabs" role="tablist" aria-label="选择地图">
+        <button class="map-tab" role="tab" id="map-tab-world" data-map="world" aria-selected="true" aria-controls="map-panel">世界地图</button>
+        <button class="map-tab" role="tab" id="map-tab-china" data-map="china" aria-selected="false" aria-controls="map-panel" tabindex="-1">中国地图</button>
+        <button class="map-tab" role="tab" id="map-tab-usa" data-map="usa" aria-selected="false" aria-controls="map-panel" tabindex="-1">美国地图</button>
+        <button class="map-tab" role="tab" id="map-tab-japan" data-map="japan" aria-selected="false" aria-controls="map-panel" tabindex="-1">日本地图</button>
+      </div><div class="map-projection" id="map-projection" role="group" aria-label="投影" aria-describedby="map-projection-help"><span>投影</span><button type="button" data-projection="equal-earth" aria-pressed="false" disabled>Equal Earth</button><button type="button" data-projection="equirectangular" aria-pressed="false" disabled>等距圆柱</button><button type="button" data-projection="mercator" aria-pressed="false" disabled>墨卡托</button></div><div class="map-legend" role="group" aria-label="高亮图例"><span><i aria-hidden="true"></i>悬停</span><span><i aria-hidden="true"></i>已选</span></div></div>
+      <p class="map-projection-help" id="map-projection-help">Equal Earth 为上一版默认投影；等距圆柱是矩形地图，墨卡托会放大高纬地区。</p>
+      <div id="map-panel" role="tabpanel" aria-labelledby="map-tab-world" aria-busy="true">
+        <div class="map-workspace">
+          <div class="map-main">
+            <div class="map-region-picker"><label>搜索区域<input id="map-search" type="search" placeholder="中文、英文或标识" autocomplete="off" aria-controls="map-region"></label><label>选择区域<select id="map-region" disabled><option>正在加载…</option></select></label></div>
+            <div class="map-canvas">
+              <svg id="map-svg" viewBox="0 0 1000 620" role="group" tabindex="0" data-small-regions="hidden" aria-label="地图加载中" aria-describedby="map-help map-projection-help"></svg>
+              <div class="map-tooltip" id="map-tooltip" role="tooltip" hidden></div>
+              <div class="map-loading" id="map-loading" role="status"><p>正在加载本地矢量地图…</p></div>
+              <div class="map-error" id="map-error" role="alert" hidden><p id="map-error-message"></p><button id="map-retry" type="button">重新加载</button></div>
+              <div class="map-controls" role="group" aria-label="地图视图控制">
+                <button data-command="zoom-in" type="button" aria-label="放大地图">＋</button><button data-command="reset" type="button" aria-label="恢复默认视角">⟲</button><button data-command="zoom-out" type="button" aria-label="缩小地图">−</button>
+                <button data-command="left" type="button" aria-label="向左移动视图">←</button><button data-command="up" type="button" aria-label="向上移动视图">↑</button><button data-command="right" type="button" aria-label="向右移动视图">→</button>
+                <span aria-hidden="true"></span><button data-command="down" type="button" aria-label="向下移动视图">↓</button><span aria-hidden="true"></span>
+                <output id="map-zoom-level" aria-label="缩放倍率">100%</output>
+              </div>
+            </div>
+            <div class="map-actions"><p id="map-help">滚轮／双指缩放，拖动移动。键盘方向键平移，＋／−缩放，R恢复。放大超过 600% 显示微小区域定位点，也可从选择器定位。</p><div><button class="map-action" id="map-locate" type="button" disabled>定位所选</button><button class="map-action" id="map-show-detail" type="button" disabled>区域详情</button></div></div>
+          </div>
+          <aside id="map-detail" class="map-detail" aria-labelledby="map-detail-label" data-open="false">
+            <div class="map-detail-heading"><h2 id="map-detail-label">区域详情</h2><button id="map-detail-close" type="button" aria-label="关闭区域详情">×</button></div>
+            <div class="map-detail-empty" data-detail-empty><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><p>从地图开始探索。</p><p>悬停查看名称，点击国家或行政区域，基本信息会显示在这里。</p></div>
+            <div data-detail-content hidden><span data-detail-flag aria-label="国旗"></span><h3 data-detail-title></h3><p data-detail-en></p><div class="map-region-id"><code data-detail-id></code><span data-detail-kind></span></div><p class="map-data-status">边界与名称已接入。人口、GDP 等统计数据尚未接入，不代表数值为零。</p><dl data-detail-fields></dl><div data-detail-images></div></div>
+          </aside>
+        </div>
+        <footer class="map-sources"><p><strong id="map-title">地图</strong> · <span id="map-count">等待加载</span></p><p id="map-source-note"></p><div class="map-sources-links"><a id="map-attribution">数据来源</a><a id="map-license">许可</a><a id="map-boundary-download" download>本地边界数据</a><a href="data/maps/SOURCES.md">完整来源与口径</a></div></footer>
+      </div>
+      <p id="map-status" class="visually-hidden" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p>交互地图需要 JavaScript。你仍可<a href="index.html#projects">返回项目</a>，或下载本地<a href="data/maps/world.geojson">世界</a>、<a href="data/maps/china.geojson">中国</a>、<a href="data/maps/usa.geojson">美国</a>、<a href="data/maps/japan.geojson">日本</a>边界文件。</p></noscript>
+  </main>

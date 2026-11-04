@@ -1,0 +1,1 @@
+{"version":1,"pendingLabel":"第二阶段接入","fields":[{"id":"population","label":"人口","maps":["world","china","usa","japan"]},{"id":"gdp","label":"GDP","maps":["world","china","usa","japan"]},{"id":"ethnicGroups","label":"民族／族群构成","maps":["world"]},{"id":"officialLanguages","label":"官方语言","maps":["world"]},{"id":"majorLanguages","label":"主要语言","maps":["world"]}]}
