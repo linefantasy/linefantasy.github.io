@@ -5,6 +5,7 @@
 - 用户明确要求推送 GitHub。本轮包含目录整理、前端 Starter 源码及 dist/linetop-frontend-starter.zip；仅此 ZIP 解除忽略，日志、临时产物及两份原有未跟踪推送教程不入库。此前“不提交/推送”仅为当轮历史边界，由本次明确授权覆盖。
 - 只读 GitHub Pages API 核实：build_type=legacy，source=main:/，线上为 https://linetop.top/。新结构入口在public，直接更新main将影响根目录发布，因此推送独立分支 chore/frontend-starter-layout，不合并main、不修改Pages设置、不部署或改DNS。远程main开工为58458c2，与本地一致。
 - 提交前运行地图/主题Node、导出合同检查；同时核对ZIP及public保护指纹、暂存范围和Git差异。推送后用远端分支SHA核对本地提交，最终提交见git log。若检查或推送失败，以实际工具结果为准，不把准备状态当完成。
+- 已完成：代码与ZIP提交 `25b31bb` 已推送至 origin/chore/frontend-starter-layout，ls-remote与本地HEAD均为25b31bb194dfc515a604185889bdeb1ef826ce8c，ahead/behind为0/0；远程main仍为58458c2eecef962f216b0e89834852225e784513。ZIP在提交树中为978,529字节。地图Node、主题Node和3项导出合同检查重新通过，原public51文件与两份教程指纹未变，git diff --check通过。本条为随后文档记录提交，不改产品源码或ZIP。
 - 下一步若需要合并main并更新网站，先按新public根准备发布方案，再取得相应授权；本轮只将当前成果上传到仓库的独立分支。两份教程保持原样，其他来源的目录迁移和文档内容保护。
 
 ---
