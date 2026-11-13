@@ -8,8 +8,9 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'Uiverse收藏UI组件与源码整理.md'
-OUT = ROOT / 'assets' / 'uiverse'
+SOURCE = ROOT / 'docs' / 'references' / 'Uiverse收藏UI组件与源码整理.md'
+SITE = ROOT / 'public'
+OUT = SITE / 'assets' / 'uiverse'
 OUT.mkdir(parents=True, exist_ok=True)
 text = SOURCE.read_text(encoding='utf-8-sig')
 parts = {}
@@ -80,11 +81,11 @@ explore = explore.replace('<!-- From', '<!-- https://uiverse.io/doniaskima/happy
 github = re.search(r'<li class="icon-content">\s*<a href="https://www.github.com/".*?</li>', parts[20]['html'], re.S).group(0)
 github = scope(github).replace('https://www.github.com/', 'https://github.com/linefantasy').replace('aria-label="GitHub"', 'aria-label="访问 LineTop 的 GitHub：linefantasy"').replace('<svg\n', '<svg aria-hidden="true"\n')
 github = '<!-- From Uiverse.io by wilsondesouza -->\n<!-- https://uiverse.io/wilsondesouza/brave-earwig-75 -->\n<ul class="lt-social">' + github + '</ul>'
-page = (ROOT / 'index.html').read_text(encoding='utf-8-sig')
+page = (SITE / 'index.html').read_text(encoding='utf-8-sig')
 for name, markup in [('explore', explore), ('github', github)]:
     pattern = rf'<!-- uiverse:{name}:start -->.*?<!-- uiverse:{name}:end -->'
     replacement = f'<!-- uiverse:{name}:start -->\n{markup.strip()}\n<!-- uiverse:{name}:end -->'
     page, count = re.subn(pattern, lambda _: replacement, page, flags=re.S)
     assert count == 1, f'Missing/duplicate injection slot: {name}'
-(ROOT / 'index.html').write_text('\n'.join(line.rstrip() for line in page.splitlines()) + '\n', encoding='utf-8', newline='\n')
+(SITE / 'index.html').write_text('\n'.join(line.rstrip() for line in page.splitlines()) + '\n', encoding='utf-8', newline='\n')
 print('Extracted 5 local components; generated scoped CSS and actual adapted markup.')

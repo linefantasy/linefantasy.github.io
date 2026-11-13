@@ -5,7 +5,7 @@ from pathlib import Path
 import hashlib
 import re
 
-root = Path(__file__).resolve().parents[1]
+root = Path(__file__).resolve().parents[1] / 'public'
 index = (root/'index.html').read_text(encoding='utf-8')
 index = re.sub(r'(assets/[^"?]+)\?v=[a-f0-9]+',lambda m:m[1]+'?v='+hashlib.sha256((root/m[1]).read_bytes()).hexdigest()[:10],index)
 (root/'index.html').write_text(index,encoding='utf-8')

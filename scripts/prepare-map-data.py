@@ -1,9 +1,9 @@
 """Prepare local, version-pinned map data; no third-party Python dependencies.
 
-python scripts/prepare-map-data.py .tmp/maps-stage1
+python scripts/prepare-map-data.py artifacts/research/maps-stage1
 Input files: world.geojson, CHN/USA/JPN.geojson and *-metadata.json.
 Runtime geometry and region catalogs are deliberately separate. Japan's derived
-geometry/catalog are distributed under ODbL 1.0; see data/maps/SOURCES.md.
+geometry/catalog are distributed under ODbL 1.0; see public/data/maps/SOURCES.md.
 """
 import hashlib
 import json
@@ -11,8 +11,9 @@ import sys
 import copy
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-RAW = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / '.tmp/maps-stage1'
+PROJECT = Path(__file__).resolve().parents[1]
+ROOT = PROJECT / 'public'
+RAW = Path(sys.argv[1]) if len(sys.argv) > 1 else PROJECT / 'artifacts/research/maps-stage1'
 WORLD_ONLY = '--world-only' in sys.argv
 
 CN = [

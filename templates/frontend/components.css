@@ -1,0 +1,13 @@
+/* Only the component example page; the original product styles are unchanged. */
+.reuse-demo main { padding:clamp(32px,5vw,72px); padding-bottom:120px; }
+.reuse-intro,.reuse-section { max-width:1000px; margin:0 auto 48px; }
+.reuse-intro h1 { font-size:clamp(32px,4vw,58px); line-height:1.2; margin:16px 0; }
+.reuse-intro p,.reuse-section p { line-height:1.8; max-width:680px; color:var(--secondary); }
+.reuse-intro a { display:inline-block; margin-top:16px; }
+.reuse-section { border-top:1px solid var(--line); padding-top:32px; }
+.reuse-section h2 { margin-bottom:24px; font-size:24px; }
+.reuse-example { padding:16px 0; }
+.reuse-demo .lt-explore { margin:0; }
+.reuse-demo .lt-social { justify-content:flex-start; }
+.reuse-demo .project-grid { margin-top:0; }
+@media(max-width:900px) { .reuse-demo main { padding-top:96px; } }
